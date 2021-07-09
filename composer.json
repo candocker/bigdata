@@ -1,0 +1,41 @@
+{
+    "name": "candocker/bigdata",
+    "type": "project",
+    "keywords": [
+        "php",
+        "application",
+        "bigdata",
+        "user",
+        "permission",
+        "role",
+        "resource"
+    ],
+    "description": "A application of bigdata",
+    "license": "MIT",
+    "require": {
+        "php": "^7.3.0"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "ModuleBigdata\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ModuleBigdata\\Test\\": "./test/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": [],
+    "scripts": {
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://mirrors.aliyun.com/composer/"
+        }
+    }
+}
