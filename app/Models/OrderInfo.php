@@ -2,8 +2,9 @@
 
 namespace ModuleBigdata\Models;
 
-class UserPond extends AbstractModel
+class OrderInfo extends AbstractModel
 {
-    protected $table = 'user_pond';
+    protected $table = 'order_info';
     protected $guarded = ['id'];
+
 }

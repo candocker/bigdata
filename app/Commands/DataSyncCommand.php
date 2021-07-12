@@ -26,8 +26,17 @@ class DataSyncCommand extends AbstractCommand
 
     public function handle()
     {
-        $type = $this->argument('type');
-        $options = $this->option('options');
+        $type = $this->getPointArgument('type');
+
+        $method = "_{$type}Deal";
+        $this->$method();
+    }
+
+    protected function _orderDeal()
+    {
+        $service = $this->getServiceObj('dataSync');
+        $service->dealOrder();
+
         file_put_contents('/tmp/text.txt', date('Y-m-d H:i:s') . '--'. $type. '==' . $options . 'ssssssssss', FILE_APPEND);
         echo 'sssssssssss';exit();
     }
