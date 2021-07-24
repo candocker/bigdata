@@ -1,6 +1,6 @@
 <?php
 
-namespace ModuleCulture\Resources;
+namespace ModuleBigdata\Resources;
 
 use Framework\Baseapp\Resources\AbstractResource as AbstractResourceBase;
 
