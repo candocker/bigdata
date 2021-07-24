@@ -2,8 +2,6 @@
 
 namespace ModuleBigdata\Resources;
 
-use Framework\Baseapp\Resources\AbstractResource;
-
 class UserPond extends AbstractResource
 {
     protected function _frontInfoArray()

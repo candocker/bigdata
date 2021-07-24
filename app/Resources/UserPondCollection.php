@@ -2,8 +2,6 @@
 
 namespace ModuleBigdata\Resources;
 
-use Framework\Baseapp\Resources\AbstractCollection;
-
 class UserPondCollection extends AbstractCollection
 {
 
