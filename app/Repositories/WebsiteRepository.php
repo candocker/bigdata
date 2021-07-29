@@ -9,10 +9,10 @@ class WebsiteRepository extends AbstractRepository
     protected function _sceneFields()
     {
         return [
-            'list' => ['id', 'name'],
+            'list' => ['id', 'name', 'shop_id', 'shop_no', 'platform_id', 'sub_platform_id', 'dt', 'remark'],
             'listSearch' => ['id', 'name'],
-            'add' => ['name'],
-            'update' => ['name'],
+            'add' => ['remark'],
+            'update' => ['remark'],
         ];
     }
 

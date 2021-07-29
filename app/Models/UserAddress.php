@@ -7,6 +7,11 @@ class UserAddress extends AbstractModel
     protected $table = 'user_address';
     protected $guarded = ['id'];
 
+    public function userPond()
+    {
+        return $this->hasOne(UserPond::class, 'id', 'user_id');
+    }
+
     public function formatMark($data)
     {
         $fields = ['consignee', 'mobile', 'province_code', 'city_code', 'county_code'];

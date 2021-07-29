@@ -6,7 +6,7 @@ namespace ModuleBigdata\Models;
 
 class CourseSuite extends AbstractModel
 {
-    protected $table = 'courseSuite';
+    protected $table = 'course_suite';
     //protected $guarded = ['id'];
 
 }

@@ -9,17 +9,17 @@ class UserPaytradeRepository extends AbstractRepository
     protected function _sceneFields()
     {
         return [
-            'list' => ['id', 'name'],
-            'listSearch' => ['id', 'name'],
-            'add' => ['name'],
-            'update' => ['name'],
+            'list' => ['id', 'user_id', 'money', 'order_times', 'first_order_at', 'last_order_at', 'goods_list', 'remark_list', 'created_at'],
+            'listSearch' => ['id'],
+            'add' => [],
+            'update' => [],
         ];
     }
 
     public function getShowFields()
     {
         return [
-            //'type' => ['valueType' => 'key'],
+            'user_id' => ['valueType' => 'point', 'relate' => 'userPond'],
         ];
     }
 

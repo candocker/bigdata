@@ -5,19 +5,20 @@ namespace ModuleBigdata\Repositories;
 
 class UserAddressRepository extends AbstractRepository
 {
-    protected function _statusKeyDatas()
-    {
-        return [
-        ];
-    }
-
     protected function _sceneFields()
     {
         return [
-            'list' => ['id', 'name'],
-            'listSearch' => ['id', 'name'],
+            'list' => ['id', 'user_id', 'consignee', 'mobile', 'province_code', 'city_code', 'county_code', 'address', 'zipcode', 'status', 'created_at'],
+            'listSearch' => ['id', 'mobile', 'consignee'],
             'add' => ['name'],
             'update' => ['name'],
+        ];
+    }
+
+    public function getShowFields()
+    {
+        return [
+            'user_id' => ['valueType' => 'point', 'relate' => 'userPond'],
         ];
     }
 
@@ -40,6 +41,12 @@ class UserAddressRepository extends AbstractRepository
     }
 
     public function _getFieldOptions()
+    {
+        return [
+        ];
+    }
+
+    protected function _statusKeyDatas()
     {
         return [
         ];

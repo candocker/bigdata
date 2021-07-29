@@ -9,7 +9,7 @@ class GoodsRepository extends AbstractRepository
     protected function _sceneFields()
     {
         return [
-            'list' => ['id', 'name'],
+            'list' => ['id', 'name', 'goods_no', 'short_name', 'alias', 'goods_type', 'spec_count', 'brand_name', 'remark', 'class_name', 'flag_name', 'goods_created', 'dt'],
             'listSearch' => ['id', 'name'],
             'add' => ['name'],
             'update' => ['name'],

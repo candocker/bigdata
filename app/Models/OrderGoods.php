@@ -6,7 +6,7 @@ namespace ModuleBigdata\Models;
 
 class OrderGoods extends AbstractModel
 {
-    protected $table = 'orderGoods';
+    protected $table = 'order_goods';
     //protected $guarded = ['id'];
 
 }
