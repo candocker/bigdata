@@ -11,13 +11,17 @@ class OrderInfoService extends AbstractService
     public function dealOrder($connection)
     {
         $where = ['deal_status' => 0];
-        $datas = $this->getDbConnection($connection)->table('order')->where($where)->limit(20)->get();
+        $remoteConnect = $this->getDbConnection($connection);
+        $datas = $remoteConnect->table('order')->where($where)->limit(1000)->get();
         //var_dump($datas);exit();
         foreach ($datas as $data) {
             $data = get_object_vars($data);
             $user = $this->recordUserPond($data);
             $address = $this->recordUserAddress($data, $user);
             $order = $this->recordOrderInfo($data, $user, $address);
+            //$data->deal_status = 1;
+            $remoteConnect->update('update erp_order set deal_status = 1 where id = ?', [$data['id']]);
+            //$data->savel();
         }
         return true;
     }
@@ -152,6 +156,9 @@ class OrderInfoService extends AbstractService
                 $value = date('Y-m-d H:i:s', intval(substr($data[$attr], 0, 10)));
             } else {
                 $value = $data[$attr];
+            }
+            if (in_array($attr, ['pay_time']) && empty($value)) {
+                $value = null;
             }
             $result[$field] = is_string($value) ? trim($value) : $value;
         }

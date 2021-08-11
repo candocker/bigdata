@@ -34,10 +34,9 @@ class DataSyncCommand extends AbstractCommand
 
     protected function _orderDeal()
     {
-        $service = $this->getServiceObj('dataSync');
-        $service->dealOrder();
+        $service = $this->getServiceObj('orderInfo');
+        $service->dealOrder('dsource');
 
-        file_put_contents('/tmp/text.txt', date('Y-m-d H:i:s') . '--'. $type. '==' . $options . 'ssssssssss', FILE_APPEND);
         echo 'sssssssssss';exit();
     }
 }
