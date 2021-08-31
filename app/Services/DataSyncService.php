@@ -34,4 +34,11 @@ class DataSyncService extends AbstractService
             var_dump($r);
         }
     }
+
+    public function updateSources()
+    {
+        $datas = require(base_path() . '/storage/framework/sql.php');
+        $this->recordDataSync('serp', '', $datas);
+        print_R($datas);
+    }
 }
