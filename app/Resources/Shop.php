@@ -4,6 +4,6 @@ declare(strict_types = 1);
 
 namespace ModuleBigdata\Resources;
 
-class Website extends AbstractResource
+class Shop extends AbstractResource
 {
 }

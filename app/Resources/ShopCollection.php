@@ -4,6 +4,6 @@ declare(strict_types = 1);
 
 namespace ModuleBigdata\Resources;
 
-class WebsiteCollection extends AbstractCollection
+class ShopCollection extends AbstractCollection
 {
 }

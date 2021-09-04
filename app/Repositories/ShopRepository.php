@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace ModuleBigdata\Repositories;
 
-class WebsiteRepository extends AbstractRepository
+class ShopRepository extends AbstractRepository
 {
     protected function _sceneFields()
     {

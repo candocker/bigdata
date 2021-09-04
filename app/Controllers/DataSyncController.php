@@ -4,61 +4,54 @@ namespace ModuleBigdata\Controllers;
 
 class DataSyncController extends AbstractController
 {
-    public function sync()
+    public function dealOrder()
     {
         $service = $this->getServiceObj('orderInfo');
         $service->dealOrder('dsource');
     }
 
-    public function syncStatus()
+    public function updateSync()
     {
         $service = $this->getServiceObj('dataSync');
-        $service->updateSources();
-        //$service->updateSync();
+        //$service->checkRecord(); // 整理数据时的功能，已不再使用
+
+        $type = $this->request->input('type');
+        $schema = $this->request->input('schema');
+        if ($type == 'check') {
+            $datas = require(base_path() . '/storage/framework/' . $schema . '.php');
+            //$datas = $service->getTableDatas('bak_erp', 'lerp');
+            $this->recordDataSync($schema, $datas);
+            return $this->success();
+        }
+        $service->recordDataSync($schema);
+        exit();
     }
 
     public function syncDump()
     {
+        $schema = $this->request->input('schema');
+        $status = $this->request->input('status');
+        $status = !is_null($status) ? (array) $status : null;
+        $type = $this->request->input('type', '');
         $service = $this->getServiceObj('dataSync');
-        //$this->checkRecord($service);
-        //$tables = $service->getTableDatas('bak_order', 'dsource2');
-        //$service->recordDataSync('serp', 'dsource2', $tables);
 
-        //$service->dumpSql('serp');
-        $service->dumpSqlOld('serp');
+        $service->dumpSql($schema, $status, $type);
     }
 
-    protected function checkRecord($service)
+    public function tableStructure()
     {
-        $model = $this->getModelObj('bigdata-dataSync');
-        $datas = $model->query()->where(['status' => ''])->get();
-        $db = \DB::connection('dsource2');
-        foreach ($datas as $data) {
-            $table = $data['code'];
-            if (in_array($table, ['tmp_order', 'tmp_order_id', 'erp_stock_transfer_detail', 'erp_warehouse'])) {
-                continue;
+        $service = $this->getServiceObj('dataSync');
+        $databases = ['mysql', 'infocms', 'shop', 'paytrade', 'third', 'bench', 'bigdata', 'culture'];
+        $config = $this->config->get('database.connections');
+        foreach ($databases as $database) {
+            if (!isset($config[$database])) {
+                echo 'no-' . $database;
+                exit();
             }
-            $info2 = $db->select("SELECT * FROM `data_order`.`{$table}` ORDER BY `id` DESC LIMIT 1;");
-            if (!isset($info2[0])) {
-                echo 'empty ' . $table . "\n";
-                continue;
-            }
-
-            $attrs = get_object_vars($info2[0]);
-            $info1 = $db->select("SELECT * FROM `bak_order`.`{$table}` WHERE `id` = {$info2[0]->id} LIMIT 1;");
-            if (!isset($info1[0])) {
-                print_r($info2);
-                echo 'no  ' . $table . "\n";
-                continue;
-            }
-            foreach (array_keys($attrs) as $attr) {
-                //var_dump($info1[0]->$attr);var_dump($info2[0]->$attr);
-                if ($info1[0]->$attr != $info2[0]->$attr) {
-                    echo 'diff ' . $attr . '--' . $table . "\n";
-                    continue;
-                }
-            }
-            //echo 'same  ' . $table . "\n";
+            $type = 'int';// 'datetime';
+            $columns = $service->getColumnDatas('mysql', $config[$database]['database'], null, ['DATA_TYPE' => 'int']);
+            $service->changeTimestamp($columns, $type);
         }
+        exit();
     }
 }

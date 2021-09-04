@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace ModuleBigdata\Requests;
 
-class WebsiteRequest extends AbstractRequest
+class ShopRequest extends AbstractRequest
 {
     protected function _updateRule()
     {

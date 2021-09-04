@@ -4,9 +4,9 @@ declare(strict_types = 1);
 
 namespace ModuleBigdata\Models;
 
-class Website extends AbstractModel
+class Shop extends AbstractModel
 {
-    protected $table = 'website';
+    protected $table = 'shop';
     //protected $guarded = ['id'];
 
 }
