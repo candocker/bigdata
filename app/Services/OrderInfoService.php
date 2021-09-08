@@ -166,14 +166,6 @@ class OrderInfoService extends AbstractService
 
     }
 
-    protected function getDbConnection($connection = null)
-    {
-        if (is_null($connection)) {
-            return \DB::connection();
-        }
-        return \DB::connection($connection);
-    }
-
     protected function getSpreadCode()
     {
         return 'tmp';

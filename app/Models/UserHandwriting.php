@@ -7,6 +7,6 @@ namespace ModuleBigdata\Models;
 class UserHandwriting extends AbstractModel
 {
     protected $table = 'user_handwriting';
-    //protected $guarded = ['id'];
+    protected $guarded = ['id'];
 
 }

@@ -54,4 +54,10 @@ class DataSyncController extends AbstractController
         }
         exit();
     }
+
+    public function onlineUser()
+    {
+        $service = $this->getServiceObj('userHandwriting');
+        $service->dealUser();
+    }
 }
