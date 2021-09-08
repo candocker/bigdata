@@ -170,6 +170,12 @@ class OrderInfoService extends AbstractService
     {
         return 'tmp';
     }
+
+    protected function syncErp()
+    {
+        $resources = ['goods', 'goods-suite', 'goods-suite-detail', 'shop'];
+        echo 'ssssssssss';exit();
+    }
 }
 /*(
     [id] => 1

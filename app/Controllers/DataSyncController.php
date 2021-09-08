@@ -60,4 +60,10 @@ class DataSyncController extends AbstractController
         $service = $this->getServiceObj('userHandwriting');
         $service->dealUser();
     }
+
+    public function syncErp()
+    {
+        $service = $this->getServiceObj('orderInfo');
+        $service->syncErp();
+    }
 }

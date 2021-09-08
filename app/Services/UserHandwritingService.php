@@ -13,7 +13,7 @@ class UserHandwritingService extends AbstractService
     public function dealUser()
     {
         $model = $this->getModelObj('bigdata-userHandwriting');
-        $infos = $this->getMarkedInfos($model, 1000);
+        $infos = $this->getMarkedInfos($model, 4000);
         foreach ($infos as $info) {
             $sourceUserId = $info['source_user_id'];
             $remoteData = $this->getRemoteInfo('ledu', 'el_user', $sourceUserId, 'uid');

@@ -39,4 +39,10 @@ class DataSyncCommand extends AbstractCommand
 
         echo 'sssssssssss';exit();
     }
+
+    protected function _euserDeal()
+    {
+        $service = $this->getServiceObj('userHandwriting');
+        $service->dealUser();
+    }
 }
