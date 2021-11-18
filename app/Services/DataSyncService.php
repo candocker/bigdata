@@ -29,7 +29,7 @@ class DataSyncService extends AbstractService
             'name' => $data['comment'],
             'source_type' => $schema,
             'table_row' => $data['table_row'],
-            'increment' => $data['increment'],
+            'increment' => intval($data['increment']),
             'created_at' => $data['created_at'],
             'updated_at' => $data['updated_at'] ?: $data['created_at'],
             'sync_id' => $data['currentIncrement'] ?? 0,
@@ -49,13 +49,16 @@ class DataSyncService extends AbstractService
 
     protected function dealUpdateRecord($exist, $table, $data)
     {
-        $updateFields = ['table_row' => 'table_row', 'increment' => 'increment', 'sync_id' => 'currentIncrement'];
+        $updateFields = ['table_row' => 'table_row', 'increment' => 'increment'];
+        if (isset($data['currentIncrement'])) {
+            $updateFields['sync_id'] = 'currentIncrement';
+        }
         $setStr = '';
         foreach ($updateFields as $field => $sField) {
-            $exist->$field = $data[$sField];
+            $exist->$field = intval($data[$sField]);
             $setStr .= "`{$field}` = '{$data[$sField]}',";
         }
-        //$exist->save();
+        $exist->save();
         $setStr = trim($setStr, ',');
         $updateSql = "UPDATE `wp_data_sync` SET {$setStr} WHERE `code` = '{$exist->code}' AND `source_type` = '{$exist->source_type}';\n";
         echo $updateSql;

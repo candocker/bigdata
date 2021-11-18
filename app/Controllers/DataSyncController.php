@@ -20,7 +20,7 @@ class DataSyncController extends AbstractController
         if ($type == 'check') {
             $datas = require(base_path() . '/storage/framework/' . $schema . '.php');
             //$datas = $service->getTableDatas('bak_erp', 'lerp');
-            $this->recordDataSync($schema, $datas);
+            $service->recordDataSync($schema, $datas);
             return $this->success();
         }
         $service->recordDataSync($schema);
@@ -58,7 +58,9 @@ class DataSyncController extends AbstractController
     public function onlineUser()
     {
         $service = $this->getServiceObj('userHandwriting');
-        $service->dealUser();
+        //$service->dealUser();
+        //$service->checkMulMobile();
+        $service->checkEmail();
     }
 
     public function syncErp()

@@ -107,4 +107,88 @@ class UserHandwritingService extends AbstractService
         }
         return $result;
     }
+
+    public function checkMulMobile()
+    {
+        $model = $this->getModelObj('bigdata-userHandwriting');
+        $infos = $model->where('status', 90)->get();
+        //echo count($infos);exit();
+        foreach ($infos as $info) {
+            $mobile = $info->mul_mobile;
+            $datas = $model->where('mobile', $mobile)->get();
+            if ($datas->count() > 0) {
+                echo $mobile . '--';
+                foreach ($datas as $data) {
+                    echo $data['source_user_id'] . '===';
+                }
+                echo "\n";
+                //exit();
+                $info->status = 91;
+                $info->save();
+            } else {
+                $info->status = 90;
+                $info->save();
+                echo 'ssss--' . $mobile . "\n";
+            }
+        }
+    }
+
+    public function checkEmail()
+    {
+        $model = $this->getModelObj('bigdata-userHandwriting');
+        $infos = $model->where('status', 189)->where('mul_email', '<>', '')->limit(5000)->get();
+        foreach ($infos as $info) {
+            $email = $info['email'];
+            $mulEmail = $info['mul_email'];
+            if (!empty($info['nickname'])) {
+                echo 'ffffffff';exit();
+            }
+            $pos = strpos($email, $mulEmail);
+            $nickname = substr($email, 0, $pos);
+            $info->nickname = $nickname;
+            $info->email = $mulEmail;
+            $info->mul_email = '';
+            echo $info['id'] . '==' . $info['nickname'] . '--' . $pos . '--' . $nickname . '-' . $email . '==' . $mulEmail . "\n";
+            $info->status = 1;
+            $info->save();
+            //print_r($info->toArray());exit();
+        }
+        exit();
+    }
+
+    public function checkEmailbak()
+    {
+        $model = $this->getModelObj('bigdata-userHandwriting');
+        $infos = $model->where('status', 80)->limit(5000)->get();
+        foreach ($infos as $info) {
+            $check = $this->_checkEmail($info['email']);
+            if (!$check) {
+                $info->status = 180;
+            } else {
+                $info->status = 189;
+            }
+            $info->save();
+            /*$mulEmail = $info->mul_email;
+            if (!empty($mulEmail)) {
+                $checkMul = $this->_checkEmail($mulEmail);
+                if (!$checkMul) {
+                    $info->account = $mulEmail;
+                    $info->mul_email = '';
+                    print_r($info->toArray());
+                    exit();
+                    //$info->save();
+                }
+            }*/
+        }
+        exit();
+    }
+
+    protected function _checkEmail($email)
+    {
+        $validator = \Validator::make(['email' =>$email], ['email' => 'required|email:dns']);
+        if (!$validator->fails()) {
+            return true;
+        }
+        return false;
+    }
 }
